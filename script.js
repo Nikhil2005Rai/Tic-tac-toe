@@ -17,24 +17,27 @@ let gameBoard = ["", "", "", "", "", "", "", "", ""]
 
 //x=> will start the game for now
 let moveNumber = 0
+let functionEnable = true
 function cellClicked() {
-    cells.forEach(element => {
-        element.addEventListener("click", () => {
-            if (gameBoard[parseInt(element.id)] === "") {
-                if (moveNumber % 2 === 0) {
-                    gameBoard[parseInt(element.id)] = "X"
-                } else {
-                    gameBoard[parseInt(element.id)] = "O"
-                }
-                element.innerHTML = gameBoard[parseInt(element.id)]
-                moveNumber++
-                console.log(gameBoard)
-                display()
-                checkWinner()
+    if (functionEnable) {
+        cells.forEach(element => {
+            element.addEventListener("click", () => {
+                if (gameBoard[parseInt(element.id)] === "") {
+                    if (moveNumber % 2 === 0) {
+                        gameBoard[parseInt(element.id)] = "X"
+                    } else {
+                        gameBoard[parseInt(element.id)] = "O"
+                    }
+                    element.innerHTML = gameBoard[parseInt(element.id)]
+                    moveNumber++
+                    console.log(gameBoard)
+                    display()
+                    checkWinner()
 
-            }
-        })
-    });
+                }
+            })
+        });
+    }
 }
 
 function display(text = "") {
@@ -49,6 +52,8 @@ function display(text = "") {
         displayBoard.innerHTML = text
     }
 }
+
+
 
 
 function checkWinner() {
@@ -66,14 +71,17 @@ function checkWinner() {
         const condition = winningConditions[i]
         if (condition.every(index => xIndex.includes(index))) {
             display("X WON!!!")
+            
         }
         if (condition.every(index => oIndex.includes(index))) {
             display("O WON!!!")
         }
+        console.log(displayBoard.innerHTML)
     }
-    if (moveNumber === 9) {
-        display("Its a DRAW :)")
+    if (moveNumber === 9 && displayBoard.innerHTML !== "X WON!!!" && displayBoard.innerHTML !== "O WON!!!") {
+        display("It's a DRAW :)");
     }
+    
 }
 display()
 
