@@ -50,3 +50,8 @@ h1{
     background-color: white;
     color: #222;
 }
+
+.displayTurns{
+    font-size: xx-large;
+    font-weight: 500;
+}
