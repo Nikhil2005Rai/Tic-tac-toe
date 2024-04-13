@@ -16,28 +16,30 @@ const winningConditions = [
 let gameBoard = ["", "", "", "", "", "", "", "", ""]
 
 //x=> will start the game for now
+let isClick = true
 let moveNumber = 0
-let functionEnable = true
-function cellClicked() {
-    if (functionEnable) {
-        cells.forEach(element => {
-            element.addEventListener("click", () => {
-                if (gameBoard[parseInt(element.id)] === "") {
-                    if (moveNumber % 2 === 0) {
-                        gameBoard[parseInt(element.id)] = "X"
-                    } else {
-                        gameBoard[parseInt(element.id)] = "O"
-                    }
-                    element.innerHTML = gameBoard[parseInt(element.id)]
-                    moveNumber++
-                    console.log(gameBoard)
-                    display()
-                    checkWinner()
 
+
+function cellClicked() {
+
+    cells.forEach(element => {
+        element.addEventListener("click", () => {
+            if (gameBoard[parseInt(element.id)] === "") {
+                if (moveNumber % 2 === 0) {
+                    gameBoard[parseInt(element.id)] = "X"
+                } else {
+                    gameBoard[parseInt(element.id)] = "O"
                 }
-            })
-        });
-    }
+                element.innerHTML = gameBoard[parseInt(element.id)]
+                moveNumber++
+                console.log(gameBoard)
+                display()
+                checkWinner()
+
+            }
+        })
+    });
+
 }
 
 function display(text = "") {
@@ -71,17 +73,25 @@ function checkWinner() {
         const condition = winningConditions[i]
         if (condition.every(index => xIndex.includes(index))) {
             display("X WON!!!")
-            
+            isClick = false
+
         }
         if (condition.every(index => oIndex.includes(index))) {
             display("O WON!!!")
+            isClick = false
         }
         console.log(displayBoard.innerHTML)
     }
     if (moveNumber === 9 && displayBoard.innerHTML !== "X WON!!!" && displayBoard.innerHTML !== "O WON!!!") {
-        display("It's a DRAW :)");
+        display("It's a DRAW :)")
+        isClick = false
     }
-    
+    if(isClick === false){
+        cells.forEach(element => {
+            element.removeEventListener("click", )
+        })
+    }
+
 }
 display()
 
